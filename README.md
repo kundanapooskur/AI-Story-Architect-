@@ -1,4 +1,3 @@
-# Story-Architect
 # Story Architect 📖
 
 Documentation : https://docs.google.com/document/d/1aK8sUr_a09vYlYPUBf8rdtm-__rzwvcpiozW6Go1NJk/edit?tab=t.0#heading=h.c6jerouzzwpy
