@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Architect - System Architecture</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f8f9fa;
+            padding: 40px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #1e293b;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+        
+        .layer {
+            margin-bottom: 30px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .layer-header {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .layer-header .label {
+            font-size: 12px;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+        
+        .layer-content {
+            padding: 25px;
+            background: #fafafa;
+        }
+        
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+        
+        .component {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .component:hover {
+            border-color: #6366f1;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .component-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .component-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        
+        .component-desc {
+            font-size: 11px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+        
+        .arrow-down {
+            text-align: center;
+            color: #6366f1;
+            font-size: 24px;
+            margin: 15px 0;
+        }
+        
+        .subsystem {
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .subsystem-title {
+            font-weight: 600;
+            color: #6366f1;
+            margin-bottom: 12px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .subsystem-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .subsystem-features li {
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+            font-size: 13px;
+            color: #475569;
+        }
+        
+        .subsystem-features li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #6366f1;
+        }
+        
+        .tech-stack {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+        
+        .tech-stack-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tech-badge {
+            background: white;
+            border: 1px solid #cbd5e1;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #475569;
+        }
+        
+        .data-flow {
+            background: linear-gradient(to right, #f8fafc, #e0e7ff, #f8fafc);
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            border-left: 4px solid #6366f1;
+        }
+        
+        .data-flow-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        .flow-steps {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .flow-step {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .flow-arrow {
+            font-size: 20px;
+            color: #6366f1;
+        }
+        
+        .metrics-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .metric-box {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #6366f1;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 12px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Story Architect - System Architecture</h1>
+        <div class="subtitle">AI-Powered Creative Writing System with RAG, Multi-Agent Prompting, Multimodal Integration, and Synthetic Data Generation</div>
+        
+        <!-- Layer 1: Presentation -->
+        <div class="layer">
+            <div class="layer-header">
+                <span>LAYER 1: PRESENTATION LAYER</span>
+                <span class="label">Streamlit Web Interface</span>
+            </div>
+            <div class="layer-content">
+                <div class="components-grid">
+                    <div class="component">
+                        <div class="component-icon">✨</div>
+                        <div class="component-name">Story Generator</div>
+                        <div class="component-desc">Genre, style, POV selection<br>Image & audio output</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">👤</div>
+                        <div class="component-name">Character Creator</div>
+                        <div class="component-desc">Pydantic-validated profiles<br>AI enhancement</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">🌍</div>
+                        <div class="component-name">Setting Builder</div>
+                        <div class="component-desc">World-building tools<br>Atmosphere & climate</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">📋</div>
+                        <div class="component-name">Plot Outliner</div>
+                        <div class="component-desc">3-act structure<br>Story planning</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">✏️</div>
+                        <div class="component-name">Story Editor</div>
+                        <div class="component-desc">AI continuation<br>Real-time editing</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">📚</div>
+                        <div class="component-name">Literary Q&A</div>
+                        <div class="component-desc">Multi-book search<br>Citation grounding</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="arrow-down">▼</div>
+        
+        <!-- Layer 2: Application -->
+        <div class="layer">
+            <div class="layer-header">
+                <span>LAYER 2: APPLICATION ORCHESTRATION LAYER</span>
+                <span class="label">Story Manager</span>
+            </div>
+            <div class="layer-content">
+                <div class="subsystem">
+                    <div class="subsystem-title">🎯 Core Orchestration</div>
+                    <ul class="subsystem-features">
+                        <li>Coordinates RAG retrieval, agent generation, and multimodal synthesis</li>
+                        <li>Manages session state and story persistence</li>
+                        <li>Handles character registry and agent lifecycle management</li>
+                        <li>Tracks analytics: word count, character presence, scene metrics</li>
+                        <li>Implements error handling and retry logic with exponential backoff</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="arrow-down">▼</div>
+        
+        <!-- Layer 3: Intelligence -->
+        <div class="layer">
+            <div class="layer-header">
+                <span>LAYER 3: INTELLIGENCE LAYER</span>
+                <span class="label">AI Components</span>
+            </div>
+            <div class="layer-content">
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                    
+                    <!-- RAG Subsystem -->
+                    <div class="subsystem">
+                        <div class="subsystem-title">🔍 RAG Subsystem</div>
+                        <ul class="subsystem-features">
+                            <li><strong>Framework:</strong> LangChain 0.1.0</li>
+                            <li><strong>Vector Store:</strong> Pinecone (AWS Serverless)</li>
+                            <li><strong>Embeddings:</strong> OpenAI text-embedding-3-small (1536-dim)</li>
+                            <li><strong>Document Processing:</strong> 5 chunking strategies</li>
+                            <li><strong>Retrieval:</strong> Cosine similarity, hybrid search, re-ranking</li>
+                            <li><strong>Knowledge Base:</strong> 300+ vectors (novels, characters, lore)</li>
+                        </ul>
+                        
+                        <div class="data-flow">
+                            <div class="data-flow-title">RAG Pipeline:</div>
+                            <div class="flow-steps">
+                                <div class="flow-step">Query</div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-step">Embed</div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-step">Search</div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-step">Re-rank</div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-step">Context</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Agent Subsystem -->
+                    <div class="subsystem">
+                        <div class="subsystem-title">🤖 Multi-Agent Subsystem</div>
+                        <ul class="subsystem-features">
+                            <li><strong>Character Agents:</strong> Individual LLM instances per character</li>
+                            <li><strong>System Prompts:</strong> Personality, speech style, goals/fears</li>
+                            <li><strong>Context Injection:</strong> RAG-retrieved memories per agent</li>
+                            <li><strong>Narrative Director:</strong> Plot consistency and coordination</li>
+                            <li><strong>Consistency Checker:</strong> Validates against established facts</li>
+                            <li><strong>Structured Output:</strong> Pydantic models for validation</li>
+                        </ul>
+                        
+                        <div class="data-flow">
+                            <div class="data-flow-title">Agent Pipeline:</div>
+                            <div class="flow-steps">
+                                <div class="flow-step">Scene Context</div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-step">RAG Retrieve</div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-step">Agent Generate</div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-step">Validate</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Multimodal Subsystem -->
+                    <div class="subsystem">
+                        <div class="subsystem-title">🎨 Multimodal Subsystem</div>
+                        <ul class="subsystem-features">
+                            <li><strong>Image Generation:</strong> DALL-E 3 (1024x1024, standard quality)</li>
+                            <li><strong>Scene Visualization:</strong> Story text → image prompt optimization</li>
+                            <li><strong>Character Portraits:</strong> Profile-based visual generation</li>
+                            <li><strong>Audio Narration:</strong> Google Text-to-Speech (gTTS)</li>
+                            <li><strong>Style Consistency:</strong> Genre-specific art direction</li>
+                            <li><strong>Cost Management:</strong> Optional generation with budget tracking</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Synthetic Data Subsystem -->
+                    <div class="subsystem">
+                        <div class="subsystem-title">🔬 Synthetic Data Subsystem</div>
+                        <ul class="subsystem-features">
+                            <li><strong>Story Variations:</strong> Alternative plot branches (3-5 per scene)</li>
+                            <li><strong>Dialogue Augmentation:</strong> Multiple phrasings per line</li>
+                            <li><strong>Plot Twist Generation:</strong> Unexpected narrative developments</li>
+                            <li><strong>Diversity Metrics:</strong> Lexical diversity, vocabulary richness</li>
+                            <li><strong>Export Formats:</strong> JSON, CSV, JSONL (training-ready)</li>
+                            <li><strong>Dataset Statistics:</strong> Quality and variation analysis</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="arrow-down">▼</div>
+        
+        <!-- Layer 4: Services -->
+        <div class="layer">
+            <div class="layer-header">
+                <span>LAYER 4: EXTERNAL SERVICES LAYER</span>
+                <span class="label">APIs & Infrastructure</span>
+            </div>
+            <div class="layer-content">
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                    
+                    <div class="subsystem">
+                        <div class="subsystem-title">🗄️ Pinecone Vector Database</div>
+                        <ul class="subsystem-features">
+                            <li>Dimension: 1536</li>
+                            <li>Metric: Cosine similarity</li>
+                            <li>Index: story-memory</li>
+                            <li>Region: AWS us-east-1</li>
+                            <li>Vectors: 300+</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="subsystem">
+                        <div class="subsystem-title">🧠 OpenAI API</div>
+                        <ul class="subsystem-features">
+                            <li>GPT-3.5-turbo (generation)</li>
+                            <li>text-embedding-3-small</li>
+                            <li>DALL-E 3 (images)</li>
+                            <li>Temperature: 0.7-0.8</li>
+                            <li>Max tokens: 500-3000</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="subsystem">
+                        <div class="subsystem-title">🛡️ Error Handling</div>
+                        <ul class="subsystem-features">
+                            <li>Tenacity retry library</li>
+                            <li>Exponential backoff (2-10s)</li>
+                            <li>Max 3 retry attempts</li>
+                            <li>Graceful degradation</li>
+                            <li>95% recovery rate</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Data Flow Diagram -->
+        <div style="margin-top: 40px; padding: 30px; background: #fefce8; border-radius: 8px; border: 2px solid #fbbf24;">
+            <h3 style="margin-top: 0; color: #92400e; font-size: 18px;">📊 End-to-End Data Flow Example</h3>
+            <div style="background: white; padding: 20px; border-radius: 6px; margin-top: 15px;">
+                <div class="flow-steps">
+                    <div class="flow-step"><strong>1. User Input</strong><br><small>"Generate scene: Elena confronts Marcus"</small></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"><strong>2. RAG Retrieval</strong><br><small>Query Pinecone for Elena & Marcus data</small></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"><strong>3. Context Assembly</strong><br><small>Top-5 vectors: profiles, events, relationships</small></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"><strong>4. Agent Generation</strong><br><small>GPT-3.5 with injected context</small></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"><strong>5. Validation</strong><br><small>Consistency check vs. RAG data</small></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"><strong>6. Output</strong><br><small>Scene + optional image/audio</small></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Performance Metrics -->
+        <div style="margin-top: 40px;">
+            <h3 style="color: #1e293b; margin-bottom: 20px; font-size: 18px;">⚡ Performance Metrics</h3>
+            <div class="metrics-section">
+                <div class="metric-box">
+                    <div class="metric-value">250ms</div>
+                    <div class="metric-label">RAG Search Latency</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">2-5s</div>
+                    <div class="metric-label">Text Generation</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">85%</div>
+                    <div class="metric-label">Character Consistency</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">95%</div>
+                    <div class="metric-label">Error Recovery</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">$0.09</div>
+                    <div class="metric-label">Cost per Session</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">300+</div>
+                    <div class="metric-label">RAG Vectors</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tech Stack -->
+        <div class="tech-stack">
+            <div class="tech-stack-title">🛠️ Technology Stack</div>
+            <div class="tech-badges">
+                <div class="tech-badge">LangChain 0.1.0</div>
+                <div class="tech-badge">Pinecone Vector DB</div>
+                <div class="tech-badge">OpenAI GPT-3.5-turbo</div>
+                <div class="tech-badge">OpenAI DALL-E 3</div>
+                <div class="tech-badge">OpenAI Embeddings</div>
+                <div class="tech-badge">Pydantic 2.0</div>
+                <div class="tech-badge">Streamlit 1.31</div>
+                <div class="tech-badge">Tenacity (Retry)</div>
+                <div class="tech-badge">gTTS (Audio)</div>
+                <div class="tech-badge">Python 3.9</div>
+            </div>
+        </div>
+        
+        <!-- Component Details -->
+        <div style="margin-top: 40px;">
+            <h3 style="color: #1e293b; margin-bottom: 20px; font-size: 18px;">📦 Component Implementation Details</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                <div style="background: #f8fafc; padding: 20px; border-radius: 6px; border-left: 4px solid #6366f1;">
+                    <h4 style="margin-top: 0; color: #1e293b;">RAG Implementation</h4>
+                    <p style="font-size: 13px; line-height: 1.6; color: #475569;">
+                        <strong>Document Processing:</strong> 5 strategies (sentence, paragraph, semantic, fixed-size, auto)<br>
+                        <strong>Chunking:</strong> 400-1000 chars with 10-20% overlap<br>
+                        <strong>Retrieval:</strong> Top-k (k=3,5,8), hybrid search (semantic + keyword)<br>
+                        <strong>Re-ranking:</strong> 70% semantic + 30% keyword overlap<br>
+                        <strong>Knowledge Base:</strong> 4 classic books + original fantasy novel
+                    </p>
+                </div>
+                
+                <div style="background: #f8fafc; padding: 20px; border-radius: 6px; border-left: 4px solid #8b5cf6;">
+                    <h4 style="margin-top: 0; color: #1e293b;">Prompt Engineering</h4>
+                    <p style="font-size: 13px; line-height: 1.6; color: #475569;">
+                        <strong>Character Agents:</strong> Unique system prompt per character<br>
+                        <strong>Context Window:</strong> Last 1000 chars + top-5 RAG results<br>
+                        <strong>Pydantic Models:</strong> Structured output validation<br>
+                        <strong>Narrative Director:</strong> Multi-character scene coordination<br>
+                        <strong>Consistency:</strong> Embedding similarity checks (>0.80 threshold)
+                    </p>
+                </div>
+                
+                <div style="background: #f8fafc; padding: 20px; border-radius: 6px; border-left: 4px solid #ec4899;">
+                    <h4 style="margin-top: 0; color: #1e293b;">Multimodal Integration</h4>
+                    <p style="font-size: 13px; line-height: 1.6; color: #475569;">
+                        <strong>Image Gen:</strong> DALL-E 3, 1024x1024 resolution<br>
+                        <strong>Prompt Optimization:</strong> Scene text → visual element extraction<br>
+                        <strong>Style Control:</strong> Genre-specific art direction<br>
+                        <strong>Audio:</strong> gTTS for narration generation<br>
+                        <strong>Integration:</strong> Inline display with story text
+                    </p>
+                </div>
+                
+                <div style="background: #f8fafc; padding: 20px; border-radius: 6px; border-left: 4px solid #10b981;">
+                    <h4 style="margin-top: 0; color: #1e293b;">Synthetic Data Generation</h4>
+                    <p style="font-size: 13px; line-height: 1.6; color: #475569;">
+                        <strong>Variations:</strong> 3-5 alternative outcomes per scene<br>
+                        <strong>Augmentation:</strong> Dialogue and plot twist generation<br>
+                        <strong>Metrics:</strong> Lexical diversity (TTR), vocabulary richness<br>
+                        <strong>Export:</strong> JSON, CSV, JSONL formats<br>
+                        <strong>Use Cases:</strong> Training data, A/B testing, exploration
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div style="margin-top: 40px; padding: 20px; background: #f1f5f9; border-radius: 6px; text-align: center;">
+            <div style="font-size: 14px; color: #475569; margin-bottom: 10px;">
+                <strong>Story Architect</strong> - Advanced Machine Learning & AI Course Project
+            </div>
+            <div style="font-size: 12px; color: #64748b;">
+                Implements: RAG ✓ | Prompt Engineering ✓ | Multimodal ✓ | Synthetic Data ✓
+            </div>
+        </div>
+    </div>
+</body>
+</html>

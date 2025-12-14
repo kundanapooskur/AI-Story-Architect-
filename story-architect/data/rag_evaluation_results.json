@@ -1,0 +1,243 @@
+{
+  "topk_comparison": {
+    "k=3": {
+      "documents": [
+        {
+          "rank": 1,
+          "id": "event_event_000",
+          "score": 0.55748558,
+          "text": "Elena's village was burned by royal soldiers under General Marcus's command during the final year of the Great War. 200 civilians died.",
+          "full_text": "Elena's village was burned by royal soldiers under General Marcus's command during the final year of the Great War. 200 civilians died.",
+          "metadata": {
+            "type": "event",
+            "title": null,
+            "author": null,
+            "chunk_id": null
+          }
+        },
+        {
+          "rank": 2,
+          "id": "event_backstory_002",
+          "score": 0.541835785,
+          "text": "Elena once lost control in battle and nearly killed an innocent person",
+          "full_text": "Elena once lost control in battle and nearly killed an innocent person",
+          "metadata": {
+            "type": "event",
+            "title": null,
+            "author": null,
+            "chunk_id": null
+          }
+        },
+        {
+          "rank": 3,
+          "id": "lore_lore_51850",
+          "score": 0.52423954,
+          "text": "The Great War began when King Aldric discovered ancient magic in the Northern mountains. For 20 years, armies clashed across the realm, leaving entire kingdoms in ruins.",
+          "full_text": "The Great War began when King Aldric discovered ancient magic in the Northern mountains. For 20 years, armies clashed across the realm, leaving entire kingdoms in ruins.",
+          "metadata": {
+            "type": "lore",
+            "title": null,
+            "author": null,
+            "chunk_id": null
+          }
+        }
+      ],
+      "avg_score": 0.5412,
+      "min_score": 0.5242,
+      "max_score": 0.5575,
+      "count": 3
+    },
+    "k=5": {
+      "documents": [
+        {
+          "rank": 1,
+          "id": "event_event_000",
+          "score": 0.55748558,
+          "text": "Elena's village was burned by royal soldiers under General Marcus's command during the final year of the Great War. 200 civilians died.",
+          "full_text": "Elena's village was burned by royal soldiers under General Marcus's command during the final year of the Great War. 200 civilians died.",
+          "metadata": {
+            "type": "event",
+            "title": null,
+            "author": null,
+            "chunk_id": null
+          }
+        },
+        {
+          "rank": 2,
+          "id": "event_backstory_002",
+          "score": 0.541835785,
+          "text": "Elena once lost control in battle and nearly killed an innocent person",
+          "full_text": "Elena once lost control in battle and nearly killed an innocent person",
+          "metadata": {
+            "type": "event",
+            "title": null,
+            "author": null,
+            "chunk_id": null
+          }
+        },
+        {
+          "rank": 3,
+          "id": "lore_lore_51850",
+          "score": 0.52423954,
+          "text": "The Great War began when King Aldric discovered ancient magic in the Northern mountains. For 20 years, armies clashed across the realm, leaving entire kingdoms in ruins.",
+          "full_text": "The Great War began when King Aldric discovered ancient magic in the Northern mountains. For 20 years, armies clashed across the realm, leaving entire kingdoms in ruins.",
+          "metadata": {
+            "type": "lore",
+            "title": null,
+            "author": null,
+            "chunk_id": null
+          }
+        },
+        {
+          "rank": 4,
+          "id": "lore_lore_79979",
+          "score": 0.52423954,
+          "text": "The Great War began when King Aldric discovered ancient magic in the Northern mountains. For 20 years, armies clashed across the realm, leaving entire kingdoms in ruins.",
+          "full_text": "The Great War began when King Aldric discovered ancient magic in the Northern mountains. For 20 years, armies clashed across the realm, leaving entire kingdoms in ruins.",
+          "metadata": {
+            "type": "lore",
+            "title": null,
+            "author": null,
+            "chunk_id": null
+          }
+        },
+        {
+          "rank": 5,
+          "id": "lore_lore_51251",
+          "score": 0.52423954,
+          "text": "The Great War began when King Aldric discovered ancient magic in the Northern mountains. For 20 years, armies clashed across the realm, leaving entire kingdoms in ruins.",
+          "full_text": "The Great War began when King Aldric discovered ancient magic in the Northern mountains. For 20 years, armies clashed across the realm, leaving entire kingdoms in ruins.",
+          "metadata": {
+            "type": "lore",
+            "title": null,
+            "author": null,
+            "chunk_id": null
+          }
+        }
+      ],
+      "avg_score": 0.5344,
+      "min_score": 0.5242,
+      "max_score": 0.5575,
+      "count": 5
+    },
+    "k=8": {
+      "documents": [
+        {
+          "rank": 1,
+          "id": "event_event_000",
+          "score": 0.557810783,
+          "text": "Elena's village was burned by royal soldiers under General Marcus's command during the final year of the Great War. 200 civilians died.",
+          "full_text": "Elena's village was burned by royal soldiers under General Marcus's command during the final year of the Great War. 200 civilians died.",
+          "metadata": {
+            "type": "event",
+            "title": null,
+            "author": null,
+            "chunk_id": null
+          }
+        },
+        {
+          "rank": 2,
+          "id": "event_backstory_002",
+          "score": 0.541986465,
+          "text": "Elena once lost control in battle and nearly killed an innocent person",
+          "full_text": "Elena once lost control in battle and nearly killed an innocent person",
+          "metadata": {
+            "type": "event",
+            "title": null,
+            "author": null,
+            "chunk_id": null
+          }
+        },
+        {
+          "rank": 3,
+          "id": "lore_lore_51850",
+          "score": 0.524924278,
+          "text": "The Great War began when King Aldric discovered ancient magic in the Northern mountains. For 20 years, armies clashed across the realm, leaving entire kingdoms in ruins.",
+          "full_text": "The Great War began when King Aldric discovered ancient magic in the Northern mountains. For 20 years, armies clashed across the realm, leaving entire kingdoms in ruins.",
+          "metadata": {
+            "type": "lore",
+            "title": null,
+            "author": null,
+            "chunk_id": null
+          }
+        },
+        {
+          "rank": 4,
+          "id": "lore_lore_51251",
+          "score": 0.524924278,
+          "text": "The Great War began when King Aldric discovered ancient magic in the Northern mountains. For 20 years, armies clashed across the realm, leaving entire kingdoms in ruins.",
+          "full_text": "The Great War began when King Aldric discovered ancient magic in the Northern mountains. For 20 years, armies clashed across the realm, leaving entire kingdoms in ruins.",
+          "metadata": {
+            "type": "lore",
+            "title": null,
+            "author": null,
+            "chunk_id": null
+          }
+        },
+        {
+          "rank": 5,
+          "id": "lore_lore_79979",
+          "score": 0.524924278,
+          "text": "The Great War began when King Aldric discovered ancient magic in the Northern mountains. For 20 years, armies clashed across the realm, leaving entire kingdoms in ruins.",
+          "full_text": "The Great War began when King Aldric discovered ancient magic in the Northern mountains. For 20 years, armies clashed across the realm, leaving entire kingdoms in ruins.",
+          "metadata": {
+            "type": "lore",
+            "title": null,
+            "author": null,
+            "chunk_id": null
+          }
+        },
+        {
+          "rank": 6,
+          "id": "doc_history_great_war_chunk_0",
+          "score": 0.476739883,
+          "text": "The Origins of the Great War\n\nThe Great War did not begin with armies clashing on battlefields. It began in a library.\n\nKing Aldric was not born to rule. He was the third son, expected to become a scholar. For twenty years, he studied ancient texts in the Royal Archives. There, he discovered referen",
+          "full_text": "The Origins of the Great War\n\nThe Great War did not begin with armies clashing on battlefields. It began in a library.\n\nKing Aldric was not born to rule. He was the third son, expected to become a scholar. For twenty years, he studied ancient texts in the Royal Archives. There, he discovered references to a power that predated the kingdom itself - magic that could reshape reality.\n\nWhen his brothers died in a hunting accident (some say murder), Aldric took the throne. His first act was to gather every book on magic in the realm. His second was to conscript every mage into his service.\n\nThe Southern Kingdoms refused to surrender their magical protections. King Aldric declared them traitors. The war began three days later.",
+          "metadata": {
+            "type": "document_chunk",
+            "title": "The True History of the Great War",
+            "author": "Unknown Scholar",
+            "chunk_id": null
+          }
+        },
+        {
+          "rank": 7,
+          "id": "event_backstory_001",
+          "score": 0.469969779,
+          "text": "Elena's brother disappeared during a fire that destroyed their village",
+          "full_text": "Elena's brother disappeared during a fire that destroyed their village",
+          "metadata": {
+            "type": "event",
+            "title": null,
+            "author": null,
+            "chunk_id": null
+          }
+        },
+        {
+          "rank": 8,
+          "id": "f704fdc8-7df3-4629-abd4-ad238c3eb384",
+          "score": 0.463008881,
+          "text": "The Great War lasted from Year 1245 to 1265 of the Third Age. It began when King Aldric III outlawed all magic practice. Approximately 200,000 people died. The war ended not with victory, but with exhaustion. Both sides simply ran out of soldiers.",
+          "full_text": "The Great War lasted from Year 1245 to 1265 of the Third Age. It began when King Aldric III outlawed all magic practice. Approximately 200,000 people died. The war ended not with victory, but with exhaustion. Both sides simply ran out of soldiers.",
+          "metadata": {
+            "type": "lore",
+            "title": null,
+            "author": null,
+            "chunk_id": null
+          }
+        }
+      ],
+      "avg_score": 0.5105,
+      "min_score": 0.463,
+      "max_score": 0.5578,
+      "count": 8
+    }
+  },
+  "precision_metrics": {
+    "total_queries": 4,
+    "queries_with_relevant": 4,
+    "success_rate": 1.0,
+    "avg_precision": 0.8
+  },
+  "test_timestamp": "https://api.openai.com/v1/"
+}
