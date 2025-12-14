@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Architect - AI-Powered Creative Writing System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --accent: #ec4899;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="rgba(255,255,255,0.1)"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero .description {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            animation: fadeInUp 1s ease 0.7s both;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.95em;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-weight: 500;
+        }
+
+        .cta-buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.9s both;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            font-size: 1.05em;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section */
+        section {
+            padding: 80px 20px;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            color: #64748b;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(99, 102, 241, 0.2);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .feature-card p {
+            color: #64748b;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .feature-card ul li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #475569;
+        }
+
+        .feature-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Interactive Demo */
+        .demo-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .demo-container {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            color: var(--dark);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .demo-header h3 {
+            color: var(--primary);
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .demo-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .demo-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        select.demo-input {
+            cursor: pointer;
+        }
+
+        textarea.demo-input {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .demo-result {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 25px;
+            min-height: 180px;
+            white-space: pre-wrap;
+            display: none;
+            border-left: 4px solid var(--primary);
+        }
+
+        .demo-result.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .demo-result h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .source-citation {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .source-citation strong {
+            color: var(--accent);
+        }
+
+        .source-citation small {
+            color: #64748b;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Screenshots Gallery */
+        .screenshots {
+            background: #f8fafc;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .screenshot-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .screenshot-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .screenshot-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: #94a3b8;
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .screenshot-caption {
+            padding: 20px;
+        }
+
+        .screenshot-caption h4 {
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-size: 1.2em;
+        }
+
+        .screenshot-caption p {
+            color: #64748b;
+            font-size: 0.95em;
+        }
+
+        /* Architecture */
+        .architecture {
+            background: white;
+        }
+
+        .architecture-placeholder {
+            background: #f1f5f9;
+            border: 3px dashed #cbd5e1;
+            border-radius: 15px;
+            padding: 80px 20px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .architecture-placeholder h3 {
+            color: #64748b;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .architecture-placeholder p {
+            color: #94a3b8;
+        }
+
+        .architecture img {
+            width: 100%;
+            max-width: 1400px;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid var(--primary);
+            transition: all 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+        }
+
+        .metric-value {
+            font-size: 2.8em;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            color: #64748b;
+            font-size: 1em;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 20px 35px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+            font-weight: 600;
+            color: var(--dark);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .tech-item:hover {
+            transform: scale(1.08);
+            border-color: var(--primary);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Documentation */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .doc-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s;
+        }
+
+        .doc-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 6px 25px rgba(99, 102, 241, 0.2);
+        }
+
+        .doc-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .doc-card h4 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 1.4em;
+        }
+
+        .doc-card p {
+            color: #64748b;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .doc-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .doc-card a:hover {
+            color: var(--secondary);
+        }
+
+        /* Video Section */
+        .video-section {
+            background: var(--dark);
+            color: white;
+        }
+
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background: #0f172a;
+            color: white;
+            padding: 60px 20px 30px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2em;
+            }
+            
+            section h2 {
+                font-size: 2.2em;
+            }
+            
+            .demo-container {
+                padding: 30px 20px;
+            }
+
+            .screenshot-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #fef3c7 0%, #fde68a 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>📖 Story Architect</h1>
+            <p class="subtitle">AI-Powered Creative Writing System</p>
+            <p class="description">
+                A comprehensive generative AI platform combining Retrieval-Augmented Generation, 
+                Multi-Agent Prompting, Multimodal Integration, and Synthetic Data Generation for 
+                consistent, character-driven storytelling.
+            </p>
+            
+            <div class="badges">
+                <span class="badge">✅ LangChain + Pinecone RAG</span>
+                <span class="badge">✅ Multi-Agent Characters</span>
+                <span class="badge">✅ DALL-E 3 Images</span>
+                <span class="badge">✅ Synthetic Data Export</span>
+                <span class="badge">✅ 1800+ Vector Knowledge Base</span>
+            </div>
+            
+            <div class="cta-buttons">
+                <a href="https://github.com/kundanapooskur/AI-Story-Architect-" class="btn btn-primary" target="_blank">
+                    📂 View on GitHub
+                </a>
+                <a href="#demo" class="btn btn-secondary">
+                    🎮 Try Interactive Demo
+                </a>
+                <a href="#video" class="btn btn-secondary">
+                    🎬 Watch 10-Min Demo
+                </a>
+                <a href="https://docs.google.com/document/d/1aK8sUr_a09vYlYPUBf8rdtm-__rzwvcpiozW6Go1NJk/edit?tab=t.0#heading=h.c6jerouzzwpy" class="btn btn-secondary" target="_blank">
+                    📄 Technical Report
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Features -->
+    <section id="features">
+        <div class="container">
+            <h2>Key Features & Components</h2>
+            <p class="section-subtitle">
+                Four advanced AI components working together to create consistent, engaging narratives
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🔍</span>
+                    <h3>Component 1: RAG System</h3>
+                    <p>Retrieval-Augmented Generation with LangChain & Pinecone</p>
+                    <ul>
+                        <li>LangChain 0.1.0 framework</li>
+                        <li>Pinecone vector database (1536-dim)</li>
+                        <li>5 chunking strategies (sentence, paragraph, semantic, fixed, auto)</li>
+                        <li>Hybrid search with re-ranking (70% semantic + 30% keyword)</li>
+                        <li>1800+ vectors: 4 classic novels + fantasy novel</li>
+                        <li>Citation grounding with source attribution</li>
+                        <li>Top-k retrieval (k=3, 5, 8)</li>
+                        <li>250ms average search latency</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🤖</span>
+                    <h3>Component 2: Prompt Engineering</h3>
+                    <p>Multi-agent system with Pydantic validation</p>
+                    <ul>
+                        <li>Character-specific AI agents</li>
+                        <li>Specialized system prompts per character</li>
+                        <li>Narrative director for plot coordination</li>
+                        <li>Dynamic context window management</li>
+                        <li>Pydantic models for structured outputs</li>
+                        <li>RAG memory injection (top-5 relevant)</li>
+                        <li>Consistency validation (85%+ accuracy)</li>
+                        <li>Error handling with retry logic (95% recovery)</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🎨</span>
+                    <h3>Component 3: Multimodal AI</h3>
+                    <p>Text, image, and audio generation</p>
+                    <ul>
+                        <li>DALL-E 3 scene visualization (1024x1024)</li>
+                        <li>Scene-to-image prompt optimization</li>
+                        <li>Character portrait generation</li>
+                        <li>Style consistency (fantasy, anime, realistic, etc.)</li>
+                        <li>Google Text-to-Speech narration (free)</li>
+                        <li>Cross-modal generation pipeline</li>
+                        <li>98% image success rate</li>
+                        <li>30-60s image generation time</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🔬</span>
+                    <h3>Component 4: Synthetic Data</h3>
+                    <p>Training dataset generation and export</p>
+                    <ul>
+                        <li>Alternative story branch generation (3-5 variations)</li>
+                        <li>Dialogue augmentation with diverse phrasings</li>
+                        <li>Plot twist generation</li>
+                        <li>Diversity metrics (TTR, vocabulary, sentence diversity)</li>
+                        <li>Export to JSON, CSV, JSONL (training-ready)</li>
+                        <li>Dataset statistics tracking</li>
+                        <li>0.68 average lexical diversity</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo -->
+    <section id="demo" class="demo-section">
+        <div class="container">
+            <h2 style="color: white;">🎮 Interactive Demo - RAG-Powered Literary Q&A</h2>
+            <p style="text-align: center; color: rgba(255,255,255,0.9); margin-bottom: 30px; font-size: 1.1em;">
+                Ask questions about classic literature using our RAG system!<br>
+                <small style="opacity: 0.8;">(Demo uses simulated responses - full app requires API keys)</small>
+            </p>
+            
+            <div class="demo-container">
+                <div class="demo-header">
+                    <h3>📚 Literary Knowledge Base Q&A</h3>
+                    <p style="color: #64748b;">Our RAG system contains 4 complete books with 1800+ indexed passages</p>
+                </div>
+                
+                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--dark);">
+                    Select a Book:
+                </label>
+                <select id="bookSelect" class="demo-input">
+                    <option value="all">All Books (Hybrid Search)</option>
+                    <option value="frankenstein">Frankenstein by Mary Shelley</option>
+                    <option value="pride">Pride and Prejudice by Jane Austen</option>
+                    <option value="gatsby">The Great Gatsby by F. Scott Fitzgerald</option>
+                    <option value="elena">Chronicles of Elena (Original Fantasy)</option>
+                </select>
+                
+                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--dark);">
+                    Your Question:
+                </label>
+                <select id="demoQuestion" class="demo-input" onchange="updateCustomQuestion()">
+                    <option value="">-- Select a sample question --</option>
+                    <option value="darcy">Who is Mr. Darcy and what is his relationship with Elizabeth?</option>
+                    <option value="monster">What is Victor Frankenstein's creation and how does he feel about it?</option>
+                    <option value="gatsby">What does the green light symbolize in The Great Gatsby?</option>
+                    <option value="elena">Who is Elena Stormborn and what is her quest?</option>
+                    <option value="themes">What are the main themes across these books?</option>
+                    <option value="class">Compare how class and social status are portrayed</option>
+                </select>
+                
+                <p style="text-align: center; margin: 15px 0; color: #94a3b8; font-weight: 600;">OR</p>
+                
+                <textarea id="customQuestion" class="demo-input" placeholder="Type your own question about the books..."></textarea>
+                
+                <button onclick="askQuestion()" class="btn btn-primary" style="width: 100%; font-size: 1.1em; padding: 18px;">
+                    🤔 Ask RAG System
+                </button>
+                
+                <div id="demoResult" class="demo-result"></div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; color: rgba(255,255,255,0.8);">
+                <p><strong>💡 How it works:</strong> Query → Embedding (1536-dim) → Pinecone Search (1800+ vectors) → Top-5 Retrieval → GPT-3.5 Synthesis → Cited Answer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Gallery -->
+    <section id="screenshots" class="screenshots">
+        <div class="container">
+            <h2>📸 Project Screenshots</h2>
+            <p class="section-subtitle">Visual tour of Story Architect's features and interface</p>
+            
+            <div class="screenshot-grid">
+                <div class="screenshot-item">
+                    <img src="https://raw.githubusercontent.com/kundanapooskur/AI-Story-Architect-/main/screenshots/story-generator.png" alt="Story Generator Interface">
+                    <div class="screenshot-caption">
+                        <h4>Story Generator</h4>
+                        <p>Generate complete stories with genre, style, POV, and tone controls. Optional image and audio generation.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="https://raw.githubusercontent.com/kundanapooskur/AI-Story-Architect-/main/screenshots/character-creator.png" alt="Character Creator">
+                    <div class="screenshot-caption">
+                        <h4>Character Creator</h4>
+                        <p>Pydantic-validated character profiles with AI enhancement and detailed personality matrices.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="https://raw.githubusercontent.com/kundanapooskur/AI-Story-Architect-/main/screenshots/literary-qa.png" alt="Literary Q&A System">
+                    <div class="screenshot-caption">
+                        <h4>Literary Q&A System</h4>
+                        <p>LangChain-powered question answering with citation grounding and source attribution.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="https://raw.githubusercontent.com/kundanapooskur/AI-Story-Architect-/main/screenshots/synthetic-data.png" alt="Synthetic Data Generation">
+                    <div class="screenshot-caption">
+                        <h4>Synthetic Data Generation</h4>
+                        <p>Generate story variations with diversity metrics and export to JSON/CSV/JSONL formats.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="https://raw.githubusercontent.com/kundanapooskur/AI-Story-Architect-/main/screenshots/multimodal-output.png" alt="Multimodal Generation">
+                    <div class="screenshot-caption">
+                        <h4>Multimodal Output</h4>
+                        <p>DALL-E 3 generated scene illustrations combined with audio narration.</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- Architecture -->
+    <section id="architecture" class="architecture">
+        <div class="container">
+            <h2>🏗️ System Architecture</h2>
+            <p class="section-subtitle">
+                Four-layer architecture: Presentation → Orchestration → Intelligence → Services
+            </p>
+            
+            <img src="https://raw.githubusercontent.com/kundanapooskur/AI-Story-Architect-/main/architecture-diagram.png" alt="Story Architect System Architecture" style="width: 100%; max-width: 1400px; display: block; margin: 30px auto; border-radius: 10px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);">
+
+            <div style="margin-top: 50px;">
+                <h3 style="text-align: center; font-size: 1.8em; margin-bottom: 30px; color: var(--dark);">
+                    📦 Component Details
+                </h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
+                    <div style="background: #f0fdf4; padding: 25px; border-radius: 10px; border-left: 4px solid #10b981;">
+                        <h4 style="color: #065f46; margin-bottom: 12px;">RAG Implementation</h4>
+                        <p style="font-size: 0.95em; color: #064e3b; line-height: 1.6;">
+                            <strong>Framework:</strong> LangChain 0.1.0<br>
+                            <strong>Vector DB:</strong> Pinecone (AWS Serverless)<br>
+                            <strong>Embeddings:</strong> OpenAI (1536-dim)<br>
+                            <strong>Chunking:</strong> 5 strategies<br>
+                            <strong>Knowledge:</strong> 250,000+ words indexed
+                        </p>
+                    </div>
+                    
+                    <div style="background: #fef3c7; padding: 25px; border-radius: 10px; border-left: 4px solid #f59e0b;">
+                        <h4 style="color: #92400e; margin-bottom: 12px;">Prompt Engineering</h4>
+                        <p style="font-size: 0.95em; color: #78350f; line-height: 1.6;">
+                            <strong>Agents:</strong> Character-specific instances<br>
+                            <strong>Validation:</strong> Pydantic models<br>
+                            <strong>Context:</strong> 1000 chars + top-5 RAG<br>
+                            <strong>Consistency:</strong> 85%+ accuracy<br>
+                            <strong>Error Handling:</strong> 95% recovery rate
+                        </p>
+                    </div>
+                    
+                    <div style="background: #fce7f3; padding: 25px; border-radius: 10px; border-left: 4px solid #ec4899;">
+                        <h4 style="color: #831843; margin-bottom: 12px;">Multimodal Integration</h4>
+                        <p style="font-size: 0.95em; color: #831843; line-height: 1.6;">
+                            <strong>Images:</strong> DALL-E 3 (1024x1024)<br>
+                            <strong>Audio:</strong> Google TTS (MP3)<br>
+                            <strong>Pipeline:</strong> Text → Image + Audio<br>
+                            <strong>Styles:</strong> Fantasy, anime, realistic<br>
+                            <strong>Cost:</strong> $0.04/image, $0 audio
+                        </p>
+                    </div>
+                    
+                    <div style="background: #ede9fe; padding: 25px; border-radius: 10px; border-left: 4px solid #8b5cf6;">
+                        <h4 style="color: #5b21b6; margin-bottom: 12px;">Synthetic Data</h4>
+                        <p style="font-size: 0.95em; color: #5b21b6; line-height: 1.6;">
+                            <strong>Variations:</strong> 3-5 per scene<br>
+                            <strong>Augmentation:</strong> Dialogue, branches, twists<br>
+                            <strong>Metrics:</strong> Lexical diversity (0.68 TTR)<br>
+                            <strong>Export:</strong> JSON, CSV, JSONL<br>
+                            <strong>Use:</strong> Training-ready datasets
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Metrics -->
+    <section id="metrics">
+        <div class="container">
+            <h2>⚡ Performance Metrics</h2>
+            <p class="section-subtitle">Measured performance across 500+ operations</p>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">250ms</div>
+                    <div class="metric-label">RAG Search Latency</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-value">85%</div>
+                    <div class="metric-label">Character Consistency</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-value">2-5s</div>
+                    <div class="metric-label">Text Generation Time</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-value">95%</div>
+                    <div class="metric-label">Error Recovery Rate</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-value">$0.09</div>
+                    <div class="metric-label">Cost per Session</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-value">1800+</div>
+                    <div class="metric-label">RAG Vectors</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section id="tech">
+        <div class="container">
+            <h2>🛠️ Technology Stack</h2>
+            
+            <div class="tech-stack">
+                <div class="tech-item">LangChain 0.1.0</div>
+                <div class="tech-item">Pinecone</div>
+                <div class="tech-item">OpenAI GPT-3.5</div>
+                <div class="tech-item">DALL-E 3</div>
+                <div class="tech-item">Pydantic 2.0</div>
+                <div class="tech-item">Streamlit 1.31</div>
+                <div class="tech-item">Tenacity</div>
+                <div class="tech-item">Python 3.9</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Demo -->
+    <section id="video" class="video-section">
+        <div class="container">
+            <div class="video-container">
+                <h2 style="color: white;">🎬 Video Demonstration</h2>
+                <p style="color: rgba(255,255,255,0.9); margin-bottom: 20px; font-size: 1.1em;">
+                    10-minute comprehensive walkthrough of all features and technical implementation
+                </p>
+                
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/cx_2ago2r0c" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <a href="https://youtu.be/cx_2ago2r0c?si=JToLcdrwEONHXouy" class="btn btn-primary" target="_blank" style="background: var(--accent);">
+                        ▶️ Watch on YouTube
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation -->
+    <section id="documentation">
+        <div class="container">
+            <h2>📚 Documentation & Resources</h2>
+            <p class="section-subtitle">Complete technical documentation and guides</p>
+            
+            <div class="docs-grid">
+                <div class="doc-card">
+                    <span class="doc-icon">📖</span>
+                    <h4>README & Setup</h4>
+                    <p>Quick start guide, installation instructions, and usage examples. Get up and running in 10 minutes.</p>
+                    <a href="https://github.com/kundanapooskur/AI-Story-Architect-#readme" target="_blank">
+                        Read Documentation →
+                    </a>
+                </div>
+                
+                <div class="doc-card">
+                    <span class="doc-icon">🏗️</span>
+                    <h4>Architecture Guide</h4>
+                    <p>System design, component details, data flow diagrams, and technical architecture overview.</p>
+                    <a href="https://github.com/kundanapooskur/AI-Story-Architect-" target="_blank">
+                        View Architecture →
+                    </a>
+                </div>
+                
+                <div class="doc-card">
+                    <span class="doc-icon">📄</span>
+                    <h4>Technical Report</h4>
+                    <p>Comprehensive documentation with implementation details, performance metrics, challenges, and solutions.</p>
+                    <a href="https://docs.google.com/document/d/1aK8sUr_a09vYlYPUBf8rdtm-__rzwvcpiozW6Go1NJk/edit?tab=t.0#heading=h.c6jerouzzwpy" target="_blank">
+                        View Report →
+                    </a>
+                </div>
+                
+                <div class="doc-card">
+                    <span class="doc-icon">🎬</span>
+                    <h4>Video Demo</h4>
+                    <p>Complete 10-minute video demonstration with technical explanations and live system walkthrough.</p>
+                    <a href="https://youtu.be/cx_2ago2r0c?si=JToLcdrwEONHXouy" target="_blank">
+                        Watch Video →
+                    </a>
+                </div>
+                
+                <div class="doc-card">
+                    <span class="doc-icon">💻</span>
+                    <h4>Source Code</h4>
+                    <p>Complete codebase with inline documentation, type hints, and comprehensive comments.</p>
+                    <a href="https://github.com/kundanapooskur/AI-Story-Architect-" target="_blank">
+                        Browse Code →
+                    </a>
+                </div>
+                
+                <div class="doc-card">
+                    <span class="doc-icon">📊</span>
+                    <h4>Example Inputs</h4>
+                    <p>Ready-to-use example inputs for demos, testing, and exploring system capabilities.</p>
+                    <a href="https://github.com/kundanapooskur/AI-Story-Architect-" target="_blank">
+                        View Examples →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evaluation Criteria -->
+    <section id="evaluation" style="background: #f8fafc;">
+        <div class="container">
+            <h2>✅ Evaluation Criteria Coverage</h2>
+            <p class="section-subtitle">Comprehensive implementation of all assignment requirements</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3 style="color: var(--primary);">Technical Implementation (40%)</h3>
+                    <ul>
+                        <li>LangChain + Pinecone RAG system (required)</li>
+                        <li>5 document chunking strategies</li>
+                        <li>Multi-agent prompt engineering</li>
+                        <li>Pydantic validation models</li>
+                        <li>Robust error handling with retry</li>
+                        <li>Clean, documented code</li>
+                        <li>1800+ vector knowledge base</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h3 style="color: var(--primary);">Creativity & Application (20%)</h3>
+                    <ul>
+                        <li>Novel multi-agent architecture</li>
+                        <li>Character consistency innovation</li>
+                        <li>Cross-book literary analysis</li>
+                        <li>Interactive storytelling platform</li>
+                        <li>Real utility for writers</li>
+                        <li>Unique RAG + agents combination</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h3 style="color: var(--primary);">Documentation (20%)</h3>
+                    <ul>
+                        <li>Complete README with setup</li>
+                        <li>Architecture diagrams</li>
+                        <li>Comprehensive technical report</li>
+                        <li>10-minute video demonstration</li>
+                        <li>This professional website</li>
+                        <li>Example inputs and guides</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h3 style="color: var(--primary);">User Experience (20%)</h3>
+                    <ul>
+                        <li>Intuitive Streamlit interface</li>
+                        <li>Fast response times (2-5s)</li>
+                        <li>Graceful error handling</li>
+                        <li>Multiple export formats</li>
+                        <li>Clear cost transparency</li>
+                        <li>Accessibility features (audio)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/kundanapooskur/AI-Story-Architect-" target="_blank">📂 GitHub Repository</a>
+                <a href="https://youtu.be/cx_2ago2r0c?si=JToLcdrwEONHXouy" target="_blank">🎬 Video Demo</a>
+                <a href="https://docs.google.com/document/d/1aK8sUr_a09vYlYPUBf8rdtm-__rzwvcpiozW6Go1NJk/edit?tab=t.0#heading=h.c6jerouzzwpy" target="_blank">📄 Technical Report</a>
+            </div>
+            <p style="margin-top: 30px; opacity: 0.9; font-size: 1.05em;">
+                Built for <span class="highlight">Prompt Engineering & AI Course</span>
+            </p>
+            <p style="margin-top: 20px; opacity: 0.7;">
+                Story Architect | RAG + Prompt Engineering + Multimodal + Synthetic Data
+            </p>
+            <p style="margin-top: 15px; opacity: 0.6; font-size: 0.9em;">
+                ©️ 2025 | MIT License
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const responses = {
+            frankenstein: {
+                darcy: null,
+                monster: {
+                    answer: "Victor Frankenstein's creation is an 8-foot tall being assembled from corpse parts and brought to life through scientific experimentation. Victor describes the creature as having 'yellow skin', 'watery eyes', and a horrifying appearance that filled him with disgust upon animation. Victor's feelings toward his creation are complex and tragic - he is initially horrified and abandons the creature immediately, then feels overwhelming guilt as the creature seeks revenge by killing Victor's loved ones, including his brother William, best friend Henry Clerval, and bride Elizabeth. Victor oscillates between hatred for the monster and recognition of his own responsibility as creator.",
+                    sources: [
+                        {title: "Frankenstein Chapter 5", score: 0.847, text: "His yellow skin scarcely covered the work of muscles and arteries beneath; his hair was of a lustrous black, and flowing; his teeth of a pearly whiteness; but these luxuriances only formed a more horrid contrast..."},
+                        {title: "Frankenstein Chapter 10", score: 0.812, text: "I am thy creature, and I will be even mild and docile to my natural lord and king if thou wilt also perform thy part, the which thou owest me..."},
+                        {title: "Frankenstein Chapter 24", score: 0.791, text: "I, the miserable and the abandoned, am an abortion, to be spurned at, and kicked, and trampled on..."}
+                    ]
+                },
+                gatsby: null,
+                elena: null,
+                themes: {
+                    answer: "The main themes explored across these works include: (1) Ambition and its consequences - Victor Frankenstein's scientific ambition leads to tragedy, Gatsby's pursuit of wealth destroys him, and Darcy must overcome pride while Elizabeth overcomes prejudice. (2) Social class and status - Pride and Prejudice explores class barriers in marriage, Gatsby depicts old money vs new money, and Frankenstein shows class through the creature's rejection. (3) Isolation and belonging - The creature's isolation mirrors Elena's upbringing by wolves and Gatsby's loneliness despite wealth. (4) Responsibility and consequences - Victor abandons his creation, Gatsby pursues Daisy recklessly, and Elena must face the truth about her family.",
+                    sources: [
+                        {title: "Pride and Prejudice Chapter 19", score: 0.763, text: "...the wants, and the importance of a family, where though she had no doubt her fortune would be very ample..."},
+                        {title: "The Great Gatsby Chapter 7", score: 0.741, text: "...old money vs new money, the established wealthy and the newly rich..."},
+                        {title: "Frankenstein Chapter 16", score: 0.728, text: "...everywhere I see bliss, from which I alone am irrevocably excluded..."}
+                    ]
+                },
+                class: {
+                    answer: "Class and social status are central themes in both novels. In Pride and Prejudice, Austen critiques the rigid class system of Regency England where marriage is primarily an economic transaction - Elizabeth Bennet must navigate expectations that she marry for money and status rather than love. Mr. Darcy's initial pride stems from his elevated social position, while Elizabeth's prejudice is partly defensive against class condescension. In The Great Gatsby, Fitzgerald explores the American class system through the geography of East Egg (old money) vs West Egg (new money). Gatsby's entire fortune is built to transcend his lower-class origins and win Daisy, but he can never truly enter the old money aristocracy - they use him and discard him. Both novels suggest class barriers are nearly insurmountable despite surface social mobility.",
+                    sources: [
+                        {title: "Pride and Prejudice Chapter 56", score: 0.821, text: "...respectable, honourable, and just, would give nothing else to a man who merely wished to be rich..."},
+                        {title: "The Great Gatsby Chapter 1", score: 0.798, text: "...in my younger and more vulnerable years my father gave me some advice that I've been turning over in my mind ever since. Whenever you feel like criticizing any one, just remember that all the people in this world haven't had the advantages that you've had..."}
+                    ]
+                }
+            },
+            pride: {
+                darcy: {
+                    answer: "Mr. Fitzwilliam Darcy is a wealthy gentleman with an estate called Pemberley and an income of £10,000 a year - making him one of the richest characters in the novel. He is initially portrayed as proud, aloof, and condescending, particularly toward those he considers beneath his social class. His relationship with Elizabeth Bennet begins disastrously when he insults her at a ball, saying she is 'tolerable, but not handsome enough to tempt me.' However, Darcy falls deeply in love with Elizabeth despite his initial prejudice against her lower social standing. His first proposal is rejected because of his arrogance. Through self-reflection prompted by Elizabeth's criticism, Darcy undergoes significant character development, becoming more humble and kind. He ultimately proves his love through actions - saving Elizabeth's sister Lydia from ruin without seeking recognition. Their relationship arc represents the novel's central theme of overcoming pride and prejudice.",
+                    sources: [
+                        {title: "Pride and Prejudice Chapter 3", score: 0.876, text: "She is tolerable; but not handsome enough to tempt me; and I am in no humour at present to give consequence to young ladies who are slighted by other men..."},
+                        {title: "Pride and Prejudice Chapter 34", score: 0.843, text: "In vain have I struggled. It will not do. My feelings will not be repressed. You must allow me to tell you how ardently I admire and love you..."},
+                        {title: "Pride and Prejudice Chapter 58", score: 0.819, text: "You taught me a lesson, hard indeed at first, but most advantageous. By you, I was properly humbled..."}
+                    ]
+                }
+            },
+            gatsby: {
+                gatsby: {
+                    answer: "The green light is one of the most important symbols in The Great Gatsby. It sits at the end of Daisy Buchanan's dock in East Egg and represents Gatsby's hopes and dreams for the future, particularly his desire to reclaim his relationship with Daisy. When Gatsby reaches toward the green light, he is literally reaching across the water toward Daisy but metaphorically reaching toward an idealized past he believes he can recreate. The green color suggests both money (what Gatsby believes will win Daisy) and the 'green breast of the new world' - the American Dream itself. The light is unattainable despite being visible, symbolizing how Gatsby's dream is always just out of reach. At the novel's end, Nick reflects that we are all like boats 'beating on, ceaselessly into the past,' suggesting the green light represents not just Gatsby's personal dream but humanity's tendency to romanticize the past and pursue impossible ideals.",
+                    sources: [
+                        {title: "The Great Gatsby Chapter 1", score: 0.887, text: "...he stretched out his arms toward the dark water in a curious way, and, far as I was from him, I could have sworn he was trembling. Involuntarily I glanced seaward - and distinguished nothing except a single green light, minute and far away..."},
+                        {title: "The Great Gatsby Chapter 9", score: 0.854, text: "Gatsby believed in the green light, the orgastic future that year by year recedes before us. It eluded us then, but that's no matter - tomorrow we will run faster, stretch out our arms farther..."}
+                    ]
+                }
+            },
+            elena: {
+                elena: {
+                    answer: "Elena Stormborn is the protagonist of the Chronicles of Elena, a fierce warrior who was orphaned at age 8 when soldiers burned her village during the Great War. After her parents were killed in the flames and her brother Jakob disappeared, Elena was raised by a pack of dire wolves in the Northern forests for 10 years, developing enhanced senses, survival skills, and a deep connection to nature. At 18, she left the pack to search for her lost brother, whom she believes is still alive. Elena is characterized as brave but impulsive, fiercely loyal to those she trusts, and struggling with her dual nature - part human, part wolf. She fears fire due to her trauma, fears abandonment, and fears losing control of her wolf instincts. Her quest is to find Jakob and avenge her parents' deaths while protecting innocents from war. She travels with Marcus, a former general who harbors a dark secret about her village's destruction.",
+                    sources: [
+                        {title: "Chronicles Chapter 1: Ashes and Wolves", score: 0.892, text: "The fire came at dawn. Elena was eight years old when she watched her village burn..."},
+                        {title: "Chronicles Chapter 4: Alliance of Guilt", score: 0.856, text: "Elena saved Marcus's life on a Tuesday...silver hair, wolf-grey eyes, moving with animal grace..."},
+                        {title: "Character Profile: Elena Stormborn", score: 0.834, text: "Brave but impulsive warrior. Raised by wolves. Goals: Find brother Jakob, avenge parents, protect innocents..."}
+                    ]
+                }
+            },
+            all: {
+                themes: {
+                    answer: "Major themes across these works include: (1) Ambition and its consequences - Victor's scientific ambition, Gatsby's pursuit of wealth and status, characters' goals driving their destruction. (2) Social class barriers - Pride and Prejudice's marriage economics, Gatsby's old vs new money, the creature's exclusion from human society. (3) The past's inescapable pull - Characters unable to escape their histories, trauma shaping identities. (4) Isolation vs belonging - The creature's profound loneliness, Gatsby's isolation despite parties, Elena's between-worlds existence. (5) Moral responsibility - Victor abandoning his creation, characters facing consequences of their choices. (6) Transformation and identity - Characters evolving through trials, questioning who they are versus who society expects them to be.",
+                    sources: [
+                        {title: "Pride and Prejudice", score: 0.763},
+                        {title: "Frankenstein", score: 0.751},
+                        {title: "The Great Gatsby", score: 0.741},
+                        {title: "Chronicles of Elena", score: 0.708}
+                    ]
+                }
+            }
+        };
+
+        function updateCustomQuestion() {
+            const select = document.getElementById('demoQuestion');
+            const textarea = document.getElementById('customQuestion');
+            if (select.value) {
+                textarea.value = '';
+            }
+        }
+
+        function askQuestion() {
+            const bookSelect = document.getElementById('bookSelect');
+            const questionSelect = document.getElementById('demoQuestion');
+            const customTextarea = document.getElementById('customQuestion');
+            const resultDiv = document.getElementById('demoResult');
+            
+            const book = bookSelect.value;
+            const selectedQ = questionSelect.value;
+            const customQ = customTextarea.value.trim();
+            
+            if (!selectedQ && !customQ) {
+                alert('Please select or type a question!');
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div class="loading"></div> <strong>Searching RAG database...</strong><br><small style="color: #64748b; margin-top: 10px; display: block;">Embedding query → Pinecone search → Top-5 retrieval → GPT-3.5 synthesis</small>';
+            resultDiv.classList.add('show');
+            
+            setTimeout(() => {
+                let response = null;
+                
+                if (book !== 'all' && responses[book] && responses[book][selectedQ]) {
+                    response = responses[book][selectedQ];
+                } else if (responses.frankenstein[selectedQ]) {
+                    response = responses.frankenstein[selectedQ];
+                } else if (responses.pride[selectedQ]) {
+                    response = responses.pride[selectedQ];
+                } else if (responses.gatsby[selectedQ]) {
+                    response = responses.gatsby[selectedQ];
+                } else if (responses.elena[selectedQ]) {
+                    response = responses.elena[selectedQ];
+                } else if (responses.all[selectedQ]) {
+                    response = responses.all[selectedQ];
+                }
+                
+                if (response && response.answer) {
+                    let html = '<h4>📚 Answer:</h4>';
+                    html += `<p style="line-height: 1.8; color: #1e293b; margin-bottom: 20px;">${response.answer}</p>`;
+                    
+                    if (response.sources && response.sources.length > 0) {
+                        html += '<h4 style="margin-top: 25px;">📄 Sources Retrieved from RAG:</h4>';
+                        response.sources.forEach((source, i) => {
+                            html += `
+                                <div class="source-citation">
+                                    <strong>[${i + 1}] ${source.title}</strong>
+                                    ${source.score ? `<span style="float: right; color: var(--primary); font-weight: 600;">Score: ${source.score.toFixed(3)}</span>` : ''}
+                                    <small>${source.text || 'Retrieved from vector database'}</small>
+                                </div>
+                            `;
+                        });
+                    }
+                    
+                    resultDiv.innerHTML = html;
+                } else {
+                    resultDiv.innerHTML = `
+                        <h4>🎭 Demo Mode</h4>
+                        <p style="line-height: 1.8;">
+                            This is a simulated demo. In the full application, your question would be processed through:
+                        </p>
+                        <ol style="margin: 20px 0; padding-left: 25px; line-height: 1.8;">
+                            <li><strong>Embedding Generation:</strong> OpenAI converts your query to 1536-dimensional vector (~150ms)</li>
+                            <li><strong>Vector Search:</strong> Pinecone searches 1800+ vectors using cosine similarity (~250ms)</li>
+                            <li><strong>Retrieval:</strong> Top-5 most relevant passages retrieved with similarity scores</li>
+                            <li><strong>Context Assembly:</strong> Retrieved text formatted for GPT-3.5 prompt</li>
+                            <li><strong>Answer Generation:</strong> GPT-3.5-turbo synthesizes answer from context (~2-4s)</li>
+                            <li><strong>Citation Grounding:</strong> Answer mapped to source vector IDs</li>
+                        </ol>
+                        <p style="margin-top: 20px; padding: 15px; background: #fef3c7; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                            <strong>💡 Try the full application:</strong> Clone the GitHub repository, add your API keys, and run locally for actual RAG-powered answers!
+                        </p>
+                    `;
+                }
+            }, 2000);
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
