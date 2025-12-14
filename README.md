@@ -609,7 +609,7 @@ print(f'Total vectors: {stats[\"total_vector_count\"]}')
 "
 
 # Expected output:
-# Total vectors: 300+
+# Total vectors: 1800+
 ```
 
 #### 9. Launch Application
