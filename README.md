@@ -1,6 +1,10 @@
 # Story-Architect
 # Story Architect 📖
 
+Documentation : https://docs.google.com/document/d/1aK8sUr_a09vYlYPUBf8rdtm-__rzwvcpiozW6Go1NJk/edit?tab=t.0#heading=h.c6jerouzzwpy
+Demo : https://youtu.be/cx_2ago2r0c
+Web Page : https://kundanapooskur.github.io/AI-Story-Architect-/
+
 **AI-Powered Creative Writing System with RAG, Multi-Agent Prompting, Multimodal Generation, and Synthetic Data**
 
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
